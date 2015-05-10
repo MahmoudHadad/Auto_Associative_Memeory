@@ -38,7 +38,14 @@ public class Main {
 			System.out.println("3- Recall X0");
 			System.out.println("4- View Energy");
 
-			choice = sc.nextInt();
+			try{
+				choice = sc.nextInt();
+			}
+			catch(Exception e)
+			{
+				System.out.println("Enter valid input");
+				continue;
+			}
 			if(choice == 1)
 			{
 				addToMemory();

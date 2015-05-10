@@ -161,7 +161,7 @@ public class AutoAssociativeMemory {
 			int []x = getMinDistance(x__, Xs);
 
 			System.out.println("X = ");
-			print(x);
+			print(x__[0]);
 			return x;
 		}
 		else{
@@ -172,74 +172,55 @@ public class AutoAssociativeMemory {
 	}
 	
 	/////////////////////////////////////////
-	private static int hamingDistance(int []h1, int []h2, boolean[]complement){
+	private static int hamingDistance(int []h1, int []h2){
 		int counter = 0;
 		if(h1.length != h2.length)
 			return -1;
-		complement [0] = false;
+
 		for (int i = 0; i < h2.length; i++) {
 			if(h1[i] != h2[i])
 				counter++;
 		}
-		if(counter > h1.length/2)
-		{
-			counter -= h1.length/2;
-			complement[0] = true;
-		}
-
 		return counter;
 	}
 	/////////////////
 	private static int[]  getMinDistance(int []x, ArrayList<int []>arr) {
-		boolean []complement = new boolean[1];
-
-		int min = hamingDistance(x, arr.get(0), complement);
+		
+		int min = hamingDistance(x, arr.get(0));
 		int indx = 0;
-		boolean c = complement[0];
+		
 
 		for (int i = 1; i < arr.size(); i++) {
-			int h = hamingDistance(x, arr.get(i), complement);
-			if(h < min)
+			int h = hamingDistance(x, arr.get(i));
+			if(h < min )
 			{
 				min = h;
 				indx = i;
-				c = complement[0];
+				
 			}
 		}
-		if(!c)
-			return arr.get(indx);
-		// return complement
-		int []xx = arr.get(indx);
-		for (int i = 0; i < xx.length; i++) {
-			xx[i]*=-1;
-		}
-		return xx;
+		
+		return arr.get(indx);
+		
 	}
 	///////////////////////////////////////
 	private static int[] getMinDistance(int [][]x, ArrayList<int []>arr) {
-		boolean []complement = new boolean[1];
+		
 
-		int min = hamingDistance(x[0], arr.get(0), complement);
+		int min = hamingDistance(x[0], arr.get(0));
 		int indx = 0;
-		boolean c = complement[0];
+		
 
 		for (int i = 1; i < arr.size(); i++) {
-			int h = hamingDistance(x[0], arr.get(i), complement);
-			if(h < min)
+			int h = hamingDistance(x[0], arr.get(i));
+			if(h <= min)
 			{
 				min = h;
 				indx = i;
-				c = complement[0];
 			}
 		}
-		if(!c)
-			return arr.get(indx);
-		// return complement
-		int []xx = arr.get(indx);
-		for (int i = 0; i < xx.length; i++) {
-			xx[i]*=-1;
-		}
-		return xx;
+		return arr.get(indx);
+		
 	}
 	//////////////////////////////////////////////////////////
 	private static void print (int []x)

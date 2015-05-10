@@ -33,7 +33,7 @@ public class ImageProcessing {
 				int b = (rgb >> 0) & 0xff;
 				
 				if(r == 0)
-					pixels.add(0);
+					pixels.add(-1);
 				else
 					pixels.add(1);
 				
