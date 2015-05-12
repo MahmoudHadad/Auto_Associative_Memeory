@@ -5,24 +5,24 @@ import java.util.ArrayList;
 // it is the same as bidirectional memory by instead of y it will be x values 
 public class AutoAssociativeMemory {
 
-	static public int m;
+	 public int m;
 
-	public static ArrayList<int []>Xs;
-	public static ArrayList<int []>Ys;
+	public  ArrayList<int []>Xs;
+
 
 	public AutoAssociativeMemory() {
 		Xs = new ArrayList<int[]>();
-		Ys = new ArrayList<int[]>();		
+		Xs = new ArrayList<int[]>();		
 	}
-	static public int[][] memory;
+	 public int[][] memory;
 
-	public static void initiateMemory ( )
+	public  void initiateMemory ( )
 	{
 		memory = new int [m][m];
 
 		for (int i = 0; i < Xs.size(); i++) {
 
-			int [][]xi_Mult_yi = Matrix_Operations.Multiply_Vector_Vector(Ys.get(i), Xs.get(i));
+			int [][]xi_Mult_yi = Matrix_Operations.Multiply_Vector_Vector(Xs.get(i), Xs.get(i));
 			Matrix_Operations.Addition(memory, xi_Mult_yi);
 
 		}
@@ -37,7 +37,7 @@ public class AutoAssociativeMemory {
 	}
 
 	/////////////////////////////////
-	public static int [] reCallX0(int []x0)
+	public  int [] reCallX0(int []x0)
 	{
 		// Y_  <-  W*x0
 		int [][]y_ = Matrix_Operations.Multiply_Matrix_Vector(memory, x0);
@@ -58,7 +58,7 @@ public class AutoAssociativeMemory {
 		// solve 0 problem by getting Y with min distance
 		if(zeroExists)
 		{
-			int []ytemp = getMinDistance(y_, Ys);
+			int []ytemp = getMinDistance(y_, Xs);
 
 			for(int i =0 ; i <y_[0].length; i++)
 			{
@@ -117,7 +117,7 @@ public class AutoAssociativeMemory {
 		// solve 0 problem by getting Y with min distance
 		if(zeroExists)
 		{
-			int []ytemp = getMinDistance(y__, Ys);
+			int []ytemp = getMinDistance(y__, Xs);
 
 			for(int i =0 ; i <y__[0].length; i++)
 			{
@@ -172,7 +172,7 @@ public class AutoAssociativeMemory {
 	}
 	
 	/////////////////////////////////////////
-	private static int hamingDistance(int []h1, int []h2){
+	private  int hamingDistance(int []h1, int []h2){
 		int counter = 0;
 		if(h1.length != h2.length)
 			return -1;
@@ -184,7 +184,7 @@ public class AutoAssociativeMemory {
 		return counter;
 	}
 	/////////////////
-	private static int[]  getMinDistance(int []x, ArrayList<int []>arr) {
+	private  int[]  getMinDistance(int []x, ArrayList<int []>arr) {
 		
 		int min = hamingDistance(x, arr.get(0));
 		int indx = 0;
@@ -204,7 +204,7 @@ public class AutoAssociativeMemory {
 		
 	}
 	///////////////////////////////////////
-	private static int[] getMinDistance(int [][]x, ArrayList<int []>arr) {
+	private  int[] getMinDistance(int [][]x, ArrayList<int []>arr) {
 		
 
 		int min = hamingDistance(x[0], arr.get(0));
@@ -223,7 +223,7 @@ public class AutoAssociativeMemory {
 		
 	}
 	//////////////////////////////////////////////////////////
-	private static void print (int []x)
+	private  void print (int []x)
 	{
 		for (int i = 0; i < x.length; i++) {
 			System.out.print(x[i] + " ");
@@ -231,7 +231,7 @@ public class AutoAssociativeMemory {
 		System.out.println();
 	}
 	/////////////////////////////////
-	public static void viewEnergies()
+	public  void viewEnergies()
 	{
 		System.out.println("Energy ");
 		System.out.println(calcEnergy());
@@ -241,7 +241,7 @@ public class AutoAssociativeMemory {
 
 	}
 	////////////////////////////////
-	public static int calcEnergy()
+	public  int calcEnergy()
 	{
 		int e = 0;
 		for (int i = 0; i < memory.length; i++) {
@@ -252,13 +252,13 @@ public class AutoAssociativeMemory {
 		return -e;
 	}
 	///////////
-	public static void calcComputationalEnergy()
+	public  void calcComputationalEnergy()
 	{
 		int e =0;
 
 		for (int i = 0; i < Xs.size(); i++) {
 
-			int [][]E = Matrix_Operations.Multiply_Vector_Matrix(Ys.get(i), memory);
+			int [][]E = Matrix_Operations.Multiply_Vector_Matrix(Xs.get(i), memory);
 			E = Matrix_Operations.Multiply_Matrix_Vector(E, Xs.get(i)); 
 
 			//System.out.println(E.length + " * " + E[0].length);

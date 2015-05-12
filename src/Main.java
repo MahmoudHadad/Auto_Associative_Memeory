@@ -26,7 +26,7 @@ public class Main {
 		for (int i = 0; i < images.size(); i++) {
 			int []arr = toArray(images.get(i));
 			auto.Xs.add(arr);
-			auto.Ys.add(arr);
+			
 
 		}
 		//////////////////
@@ -48,10 +48,10 @@ public class Main {
 			}
 			if(choice == 1)
 			{
-				addToMemory();
+				addToMemory(auto);
 			}
 			else if(choice == 2)
-				AutoAssociativeMemory.initiateMemory();
+				auto.initiateMemory();
 
 			else if(choice == 3)
 			{
@@ -71,7 +71,7 @@ public class Main {
 				}
 				
 				int []x0 = toArray(ImageProcessing.readImage(f)) ;
-				int [] image = AutoAssociativeMemory.reCallX0(x0);
+				int [] image = auto.reCallX0(x0);
 				int indx = searchInList(image, auto.Xs);
 				
 				int i = -1;
@@ -84,15 +84,23 @@ public class Main {
 				else if(indx == 2){
 					i = 8;
 				}
-					
 				
 				System.out.println("Image number: " + i);
+				//print1D(image);
+				prepareToImage(image);
+				
+				//print1D(image);
+				
+				int [][]image2D = convertTo2D(image, 10, 5);
+				print2D(image2D);
+				ImageRW.writeImage(image2D, "D:\\java\\Auto_Associative_Memeory\\result.jpg");
+				
 			}
 
 			
 			else if(choice ==4)
 			{
-				AutoAssociativeMemory.viewEnergies();
+				auto.viewEnergies();
 			}
 
 
@@ -126,8 +134,8 @@ public class Main {
 	}
 
 
-	private static void addToMemory(){
-		int []x = new int [AutoAssociativeMemory.m];
+	private static void addToMemory(AutoAssociativeMemory auto){
+		int []x = new int [auto.m];
 
 		System.out.println("Enter x elements");
 
@@ -135,8 +143,7 @@ public class Main {
 			x[i] = sc.nextInt();
 		}
 
-		AutoAssociativeMemory.Xs.add(x);
-		AutoAssociativeMemory.Ys.add(x);
+		auto.Xs.add(x);
 
 	}
 	//////////////////////////////////////////
@@ -156,5 +163,44 @@ public class Main {
 		}
 		
 		return -1;
+	}
+	///////////////////////////////////////////////////////////////////
+	public static void prepareToImage(int []arr)
+	{
+		for (int i = 0; i < arr.length; i++) {
+			if(arr[i] ==-1)
+				arr[i] =0;
+			else if(arr[i] == 1)
+				arr[i] = 255;
+				
+		}
+	}
+	///////////////////////
+	public static int [][] convertTo2D(int []arr, int length, int width )
+	{
+		int [][] newArr = new int [length][width];
+		
+		for (int i = 0; i < arr.length; i++) {
+			newArr[i/width][i%width] = arr[i];
+		}
+		
+		return newArr;
+	}
+	
+	public static void print2D(int [][]image2D) {
+		
+		for (int j = 0; j < image2D.length; j++) {
+			for (int j2 = 0; j2 < image2D[0].length; j2++) {
+				System.out.print(image2D[j][j2] + " ");
+			}
+			System.out.println();
+		}
+	}
+	////////////////////
+	public static void print1D(int []image) {
+		for (int i = 0; i < image.length; i++) {
+			System.out.print(image[i] + " ");
+		}
+		System.out.println();
 	}
 }
